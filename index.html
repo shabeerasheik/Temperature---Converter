@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            width:360px;
+            background:#fff;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 10px 25px rgba(0,0,0,.25);
+        }
+
+        h2{
+            color:#444;
+            margin-bottom:20px;
+        }
+
+        input,select{
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+
+        select{
+            background:#667eea;
+            color:white;
+            border:none;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            background:#667eea;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            transition:.3s;
+        }
+
+        button:hover{
+            background:#5a67d8;
+        }
+
+        #result{
+            margin-top:18px;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .footer{
+            margin-top:20px;
+            color:gray;
+            font-size:13px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🌡 Temperature Converter</h2>
+
+    <input
+        type="text"
+        id="temp"
+        placeholder="Enter Temperature">
+
+    <select id="type">
+
+        <option value="CtoF">Celsius → Fahrenheit</option>
+        <option value="FtoC">Fahrenheit → Celsius</option>
+        <option value="CtoK">Celsius → Kelvin</option>
+        <option value="KtoC">Kelvin → Celsius</option>
+        <option value="FtoK">Fahrenheit → Kelvin</option>
+        <option value="KtoF">Kelvin → Fahrenheit</option>
+
+    </select>
+
+    <button onclick="convert()">
+        Convert
+    </button>
+
+    <div id="result"></div>
+
+    
+
+</div>
+
+<script>
+
+function convert(){
+
+    let input=document.getElementById("temp").value.trim();
+    let type=document.getElementById("type").value;
+    let output=document.getElementById("result");
+
+    if(input===""){
+        output.style.color="red";
+        output.innerHTML="❌ Please enter a temperature.";
+        return;
+    }
+
+    if(isNaN(input)){
+        output.style.color="red";
+        output.innerHTML="❌ Invalid input! Please enter numbers only.";
+        return;
+    }
+
+    let temp=parseFloat(input);
+    let result;
+
+    switch(type){
+
+        case "CtoF":
+            result=((temp*9/5)+32).toFixed(2)+" °F";
+            break;
+
+        case "FtoC":
+            result=((temp-32)*5/9).toFixed(2)+" °C";
+            break;
+
+        case "CtoK":
+            result=(temp+273.15).toFixed(2)+" K";
+            break;
+
+        case "KtoC":
+            result=(temp-273.15).toFixed(2)+" °C";
+            break;
+
+        case "FtoK":
+            result=(((temp-32)*5/9)+273.15).toFixed(2)+" K";
+            break;
+
+        case "KtoF":
+            result=(((temp-273.15)*9/5)+32).toFixed(2)+" °F";
+            break;
+
+    }
+
+    output.style.color="green";
+    output.innerHTML="✅ Converted Temperature : <br><br>"+result;
+
+}
+
+</script>
+
+</body>
+</html>
